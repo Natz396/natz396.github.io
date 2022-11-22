@@ -122,7 +122,7 @@ Draw.loadPlugin(function(ui)
 	{
 
 		//Id of inventory
-		var inventory = graph.model.getCell('bFDB66q49VOMM-zg_B0O-2');
+		var inventory = graph.model.getCell('_Dsneq3O4USU00xQfz6U-2');
 		var filter = function(cell)
 		{
 			if(cell.getAttribute('openBIS-hierarchy') == 'inventory')
@@ -135,7 +135,7 @@ Draw.loadPlugin(function(ui)
 		
 
 		const output = {
-			spaces: ["SPACE\nId\tCode\tDescirption"],
+			spaces: ["SPACE\nId\tCode\tDescription"],
 			projects: ["PROJECT\nId\tCode\tDescription\tSpace"],
 			result: [],
 			addEmptyLine: function()
