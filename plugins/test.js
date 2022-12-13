@@ -92,55 +92,91 @@ Draw.loadPlugin(function(ui)
 	 }
 
 
-	 function changeStyle(cell, parent_level)
-	 {
+	function getOpenbisNode(node)
+	{
+		if(mxUtils.isNode(node, 'openbis') == true)
+		{
+			return node;
+		}
+	}
+
+
+	function getOpenBIS(cell)
+	{
+		let cellValue = cell.getValue();
+		let openbisNodes = [];
+
+		if(typeof cellValue != 'undefined')
+		{
+			let valueChildNodes = mxUtils.getChildNodes(cellValue); //this is an array
+			openbisNodes = valueChildNodes.filter(getOpenbisNode);
+		}
+
+		return openbisNodes;
+	};
+
+	function isOpenbisMember(cell)
+	{
+		let openbisNodes = getOpenBIS(cell);
+		if(openbisNodes.length > 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	};
+
+
+	function setTreeOpenbisValue(cell, treeType, treeParentLevel)
+	{
+			let openbisNode = getOpenBIS(cell);
+			setOpenbisTreeCell(cell, treeParentLevel);
+	};
+
+	function setOpenbisTreeCell(cell, treeParentLevel)
+	{
 		style_space = 'fillColor=#00FF80;fillOpacity=100;';
 		style_project = 'fillColor=#29b6f2;fillOpacity=100;';
 		style_collection = 'fillColor=#FF6666;fillOpacity=100;';
 		style_object = 'fillColor=#FFFFFF;fillOpacity=100;dashed=1;allowArrows=0;';
-
-
-		if (parent_level == "inventory")
+		let openbisNode = getOpenBIS(cell)[0];
+		if(treeParentLevel == 'inventory' || treeParentLevel == 'labNotebook')
 		{
-			cell.setAttribute("openBIS-hierarchy", "space");
-			cell.setAttribute("label", "");
-			cell.setAttribute("Code", "");
-			cell.setAttribute("Description", "");
+			cell.setAttribute('label', '');
+			cell.setAttribute('Description', '');
 			graph.model.setStyle(cell, style_space);
+			openbisNode.setAttribute('treeHierarchy', 'space');
 		}
-		else if (parent_level == "space")
+		else if(treeParentLevel == 'space')
 		{
-			cell.setAttribute("openBIS-hierarchy", "project");
-			cell.setAttribute("label", "");
-			cell.setAttribute("Code", "");
-			cell.setAttribute("Description", "");
+			cell.setAttribute('label', '');
+			cell.setAttribute('Description', '');
 			graph.model.setStyle(cell, style_project);
-			
-		
+
+			openbisNode.setAttribute('treeHierarchy', 'project');
+
 		}
-		else if (parent_level == "project")
+		else if(treeParentLevel == 'project')
 		{
-			cell.setAttribute("openBIS-hierarchy", "collection");
-			cell.setAttribute("label", "");
-			cell.setAttribute("Code", "");
-			cell.setAttribute("Description", "");
+			cell.setAttribute('label', '');
+			cell.setAttribute('Description', '');
 			graph.model.setStyle(cell, style_collection);
+
+			openbisNode.setAttribute('treeHierarchy', 'collection');
+
 		}
-		else if (parent_level == "collection")
+		else if(treeParentLevel == 'collection')
 		{
-			cell.setAttribute("openBIS-hierarchy", "object");
-			cell.setAttribute("label", "");
-			cell.setAttribute("Code", "");
-			cell.setAttribute("Description", "");
+			cell.setAttribute('label', '');
+			cell.setAttribute('Description', '');
 			graph.model.setStyle(cell, style_object);
+
+			openbisNode.setAttribute('treeHierarchy', 'object');
+
 		}
-
-	 };
-
-	 function print_Id(cell)
-	 {
-		console.log(cell.getId());
-	 };
+	}
 
 
 	
