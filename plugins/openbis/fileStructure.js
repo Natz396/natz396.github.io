@@ -2,7 +2,7 @@
 Draw.loadPlugin(function(ui)
 {
 	var graph = ui.editor.graph;
-	
+
 	
 	ui.loadLibrary(
 		new LocalLibrary(
@@ -38,7 +38,7 @@ Draw.loadPlugin(function(ui)
 		}
 		else
 		{
-			console.log('The added cell does not belong to an openBIS tree.');
+			console.log('The added cell does not belong to an openBIS tree.' + cells[0].getId());
 		}
 	  });
 	  
@@ -277,7 +277,7 @@ Draw.loadPlugin(function(ui)
 	{
 		oldFunct.apply(this, arguments);
 		
-		ui.menus.addMenuItems(menu, ['-', 'extractText', '-', 'createXml'], parent);
+		ui.menus.addMenuItems(menu, ['-', 'extractText', '-', 'createXml', '-', 'testing'], parent);
 	};
 	
 	//WRITE FILE
@@ -287,58 +287,38 @@ Draw.loadPlugin(function(ui)
 		console.log('weoieoeojoe');
 	}
 
-	// Adds resource for action
-	mxResources.parse('createXml=Create Exchange Format for OpenBIS...');
-
-	// Adds action
-	ui.actions.addAction('createXml', function()
-	{
-		console.log('huhu');
-		getContent();
-
-
-
-
-		var doc = mxUtils.createXmlDocument();
-		/*
-		var node = doc.createElement('MyNode');
-		var spaceNode = doc.createElement('space');
-		var projectNode = doc.createElement('project1')
-		var collectionNode = doc.createElement('collection');
-		node.appendChild(spaceNode);
-		spaceNode.appendChild(projectNode);
-		projectNode.appendChild(collectionNode);
+	var doc = mxUtils.createXmlDocument();
+	var openbisRoot = doc.createElement('openbis');
+	var entityTypesNode = doc.createElement('entityTypes');
+	var entityInstancesNode = doc.createElement('entityInstances');
+	/*
+	doc.appendChild(openbisRoot);
+	openbisRoot.appendChild(entityTypesNode);
+	openbisRoot.appendChild(entityInstancesNode);
+	var xmlString = mxUtils.getPrettyXml(doc);
+	*/
 
 
-		doc.appendChild(spaceNode);
-		var xmlString = mxUtils.getPrettyXml(doc);
-		*/
-		var openbisRoot = doc.createElement('openbis');
-		var entityTypesNode = doc.createElement('entityTypes');
-		var entityInstancesNode = doc.createElement('entityInstances');
-		doc.appendChild(openbisRoot);
-		openbisRoot.appendChild(entityTypesNode);
-		openbisRoot.appendChild(entityInstancesNode);
-		var xmlString = mxUtils.getPrettyXml(doc);
-		//console.log('xmlstring:\n' + xmlString);
-		
-
-		/**
-		 * 
-		 */
-		const xmlFile =
+	const xmlFile =
 		{
+			space: {},
+			project: {},
+			collection: {},
+			object: {},
+
 			/**
-			 * 
-			 * @param {*} cell 
+			 * In openBIS space and project are folders
+			 * @param {mxCell} cell
+			 * @param {string} code
 			 */
-			setSpaceAttributes: function(cell)
+			setFolderAttributes: function(cell, code)
 			{
-				xmlFile.space.setAttribute('code', cell.getAttribute('label'));
+				console.log('setFilderAtributes beginning');
+				this.space.setAttribute('code', code);
 				if (typeof cell.getAttribute('Description') != 'undefined')
 				{
 					//console.log(cell.getAttribute('label') + 'description does exist');
-					xmlFile.space.setAttribute('description', cell.getAttribute('Description'));
+					this.space.setAttribute('description', cell.getAttribute('Description'));
 				}
 			},
 			/**
@@ -374,6 +354,7 @@ Draw.loadPlugin(function(ui)
 					//raise alert that label does not exist and
 					//highlight the corresponding cell
 					console.log('The cell with ' + cell.getId() + ' ' + 'does not have a code. Please insert a text!');
+					ui.alert('The cell with ' + cell.getId() + ' ' + 'does not have a code. Please insert a text!');
 				}
 
 			},
@@ -413,148 +394,231 @@ Draw.loadPlugin(function(ui)
 				}
 				
 			},
-			createXmlNode:
-			
+			createXmlNode: function(treeHierarchy, vertex, code)
+			{
+				console.log('Vertex: ' + typeof vertex);
+				console.log('createXmlNode beginning');
+				if(treeHierarchy == 'space')
+				{
+					this.createXmlNodeSpace(treeHierarchy, vertex, code);
+				}
+				else if (treeHierarchy == 'project')
+				{
+					this.createXmlNodeProject(treeHierarchy, vertex, code);
+				}
+				else if (treeHierarchy == 'collection')
+				{
+					this.createXmlNodeCollection(treeHierarchy, vertex, code);
+				}
+				else if (treeHierarchy == 'object')
+				{
+					this.createXmlNodeObject(treeHierarchy, vertex, code);
+				}
+			},
+			createXmlNodeSpace: function(treeHierarchy, vertex, code)
+			{
+				this.space = doc.createElement(treeHierarchy);
+				console.log('space node space end' + typeof vertex);
+				this.setFolderAttributes(vertex, code);
+				
+				//this.checkDescription(vertex);
+				entityInstancesNode.appendChild(this.space);
+				
+			},
+			createXmlNodeProject: function(treeHierarchy, vertex, code)
+			{
+				this.project = doc.createElement(treeHierarchy);
+				this.setFolderAttributes(vertex, code);
+				this.space.appendChild(xmlFile.project);
+			},
+			createXmlNodeCollection: function(treeHierarchy, vertex, code)
+			{
+				this.collection = doc.createElement(treeHierarchy);
+				this.collection.setAttribute('code', vertex.getAttribute('label'));
+				this.project.appendChild(xmlFile.collection);
+			},
+			createXmlNodeObject: function(treeHierarchy, vertex, code)
+			{
+				this.object = doc.createElement(treeHierarchy);
+				this.object.setAttribute('code', vertex.getAttribute('label'));
+				this.collection.appendChild(xmlFile.object);
+			},
+			export: function()
+			{
+				//
+			},
+			/**
+			 * https://www.javascripttutorial.net/dom/manipulating/remove-all-child-nodes/
+			 */
+			removeAllChildNodes: function(parent) 
+			{
+				while (parent.firstChild) {
+					parent.removeChild(parent.firstChild);
+				}
+			},
+			resetXmlDocument: function(document)
+			{
+				this.removeAllChildNodes(document);
+				document.appendChild(openbisRoot);
+				openbisRoot.appendChild(entityTypesNode);
+				openbisRoot.appendChild(entityInstancesNode);
+
+			}
 		};
 
-		//xmlFile.space = collectionNode;
-		//console.log(mxUtils.getPrettyXml(xmlFile.space));
 
 
-		var inventory = graph.model.getCell('noLVKMNDz-h90zCbm8VW-2');
-		console.log(inventory.getId());
 
-		
-		graph.traverse(inventory, true, function (vertex, edge)
+
+	// Adds resource for action
+	mxResources.parse('createXml=Create Exchange Format for OpenBIS...');
+
+	var filterInventory = function(cell)
+	{
+		if(isOpenbisMember(cell))
 		{
-			let node = getOpenBIS(vertex)[0];
-			let treeHierarchy = node.getAttribute('treeHierarchy');
+			console.log('openbis member: ' + cell.getId());
+			let openbisNode = getOpenBIS(cell);
+			console.log(openbisNode[0]);
+			if(openbisNode[0].getAttribute('treeHierarchy') == 'inventory')
+			{
+				console.log('inventory found');
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}	
+	}
+	var filterNotebook = function(cell)
+	{
+		if(isOpenbisMember(cell))
+		{
+			console.log('openbis member: ' + cell.getId());
+			let openbisNode = getOpenBIS(cell);
+			console.log(openbisNode[0]);
+			if(openbisNode[0].getAttribute('treeHierarchy') == 'eln')
+			{
+				console.log('inventory found');
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}	
+
+	}
+
+	
+	
+	function getOpenbisTreeRoots()
+	{
+		console.log('beginning getOpenbisTreeRoots');
+		var inventoryRoots = graph.model.filterDescendants(filterInventory);
+		var notebookRoots = graph.model.filterDescendants(filterNotebook);
+		return {inventoryRoots, notebookRoots};
+	};
+
+	
+	function graphTraversal(treeRoot)
+	{
+		graph.traverse(treeRoot, true, function (vertex, edge)
+		{
+			let openbisNode = getOpenBIS(vertex)[0];
+			let treeHierarchy = openbisNode.getAttribute('treeHierarchy');
+			console.log('treeHier' + treeHierarchy);
 			if (treeHierarchy != 'inventory')
 			{
 				let code = xmlFile.createCode(vertex);
 				if (xmlFile.isCodeValid(code) == true && xmlFile.isCodeUnique(code))
 				{
-					//create XML Node
-					if (treeHierarchy == 'space')
-			{
-				xmlFile.space = doc.createElement(treeHierarchy);
-				xmlFile.setSpaceAttributes(vertex);
-				xmlFile.checkDescription(vertex);
-				entityInstancesNode.appendChild(xmlFile.space);
-			}
-			else if (treeHierarchy == 'project')
-			{
-				//console.log('project level!');
-				xmlFile.project = doc.createElement(treeHierarchy);
-				xmlFile.project.setAttribute('code', vertex.getAttribute('label'));
-				xmlFile.space.appendChild(xmlFile.project);
-			}
-			else if (treeHierarchy == 'collection')
-			{
-				console.log('collection');
-				xmlFile.collection = doc.createElement(treeHierarchy);
-				xmlFile.collection.setAttribute('code', vertex.getAttribute('label'));
-				xmlFile.project.appendChild(xmlFile.collection);
-				
-			}
-			else if (treeHierarchy == 'object')
-			{
-				xmlFile.object = doc.createElement(treeHierarchy);
-				xmlFile.object.setAttribute('code', vertex.getAttribute('label'));
-				xmlFile.collection.appendChild(xmlFile.object);
-			}
+					xmlFile.codes.add(code);
+					xmlFile.createXmlNode(treeHierarchy, vertex, code);
 				}
-			}
-
-			
-
-			
+			}	
 		});
-		
-		console.log(mxUtils.getPrettyXml(doc));
+	}
 
-		var mat = graph.model.getCell('mRFb_ZpsWFXtCuEC0m-D-2');
-		let label = mat.getAttribute('label');
-		console.log('label type: ' + typeof label);
-		console.log(label.length);
-		if (label == '')
+
+	// Adds action
+	ui.actions.addAction('createXml', function()
+	{
+		console.log('huhu');
+		getContent();
+		console.log('lalalla');
+		
+		let {inventoryRoots, elnRoots} = getOpenbisTreeRoots();
+		console.log('kommt man bis hier?');
+		xmlFile.resetXmlDocument(doc);
+		if(inventoryRoots.length == 0 && elnRoots.length == 0)
 		{
-			console.log('label empty');
+			console.log('alert: no data');
+			ui.alert('No data');
+		}
+		else if(inventoryRoots.length > 1)
+		{
+			console.log('alert: too many inventories');
+			ui.alert('Too many inventories');
 		}
 		else
 		{
-			console.log('label not empty');
+			if(inventoryRoots.length == 1)
+			{
+				console.log('one invt: ' + inventoryRoots[0].getId());
+				graphTraversal(inventoryRoots[0]);
+			}
+			var dlg = new EmbedDialog(ui, mxUtils.getPrettyXml(doc), null, null, null, 'Dateiname:', null, null, "ausgaben.tsv");
+			ui.showDialog(dlg.container, 450, 250, false, true, function(){console.log('something was done');}, true, false, function(){console.log('resize event')}, true);
+			dlg.init();
 		}
-		//console.log(mat.getAttribute('Description'));
+
+
 		
-		//alert('HellO!');
-		//var popup = new PopupDialog(ui, 'http://localhost:8888/');
-		//prompt('A Question...');
+			
 
-		//let cudialog = new CustomDialog(ui, openbisRoot, null, null, 'ok button', null, 'content button', true, 'cancel button', false);
-		var content = document.createElement('div');
-		var heading = document.createElement('h2');
-		mxUtils.setTextContent(heading, 'a headingg!!!');
-		content.appendChild(heading);
-		//content.appendChild(heading);
-		//document.setTextContent(heading, 'Überschrift');
-		mxUtils.para(content, 'testest');
-		console.log('content\n' + mxUtils.getTextContent(content));
-		var input = document.createElement('input');
-		input.setAttribute('type', 'text');
-		input.setAttribute('name', 'Name');
-		input.setAttribute('size', '20');
-		heading.appendChild(input);
-		var okcklick = function()
-		{
-			console.log(input.value);
-		};
-		var btn = document.createElement('button');
-		btn.setAttribute('text', 'this is a button');
-
-		var btnfct = function()
-		{
-			document.createElement('button');
-			document.createElement('button');
-		};
-		var bs = document.createElement('div');
-		mxUtils.setTextContent(bs, 'a lot of text');
-		var selection = editorUi.addCheckbox(div, mxResources.get('selectionOnly'),
-				false, graph.isSelectionEmpty());
+		//TESTING AREA
 		
+		console.log(mxUtils.getPrettyXml(doc));
+		console.log(mxUtils.getPrettyXml(doc).length);
+		console.log('now is the end');
 
-
-		//let cudialog = new CustomDialog(ui, openbisRoot, null, null, 'ok button', null, openbisRoot, null, 'cancel button', false);
-		let dialog = new CustomDialog(ui,content,okcklick, null, null, null, bs);
-		ui.showDialog(dialog.container, 450,250,true, true);
-
-
-
-		//<input type="text" name="Name" size="20">
-
-
-		//function(editorUi, content, okFn, cancelFn, okButtonText, helpLink, buttonsContent, hideCancel, cancelButtonText, hideAfterOKFn)
-		/*
-		console.log(xmlString);
-
-		var dlg = new EmbedDialog(ui, xmlString,
-			null, null, null, 'Dateiname:', null, null, "ausgaben.tsv");
-		ui.showDialog(dlg.container, 450, 250, false, true, function(){console.log('something was done');}, true, false, function(){console.log('resize event')}, true);
-		dlg.init();
-		*/
 
 	});
 
 
-	//from Natalie: Check Functionality
-	console.log("hallo");
-    console.log('Na sowas?');
-	graph.panningHandler.popup = function(x, y, cell, evt)
-    {
-      mxUtils.alert('Hello, World!');
-    }
+	/*
+	var parent = ui.editor.graph.getDefaultParent();
+    var v1 = graph.insertVertex(graph.model.getCell('1'), null, 'Doubleclick', 20, 20, 80, 30);
+	 graph.model.setStyle(v1, 'fillColor=#00FF80;fillOpacity=100;');
+	 graph.cellRenderer.redraw;
+	console.log(graph.isCellVisible(v1));
+	console.log(graph.isCellSelectable(v1));
+	graph.view.revalidate();
+	console.log('after isnert');
+	//var v2 = graph.model.getCell('Kn0vO7ZCTQ7agnD9xuEy-1');
+	//var v3 = graph.model.cloneCell(v2);
 
-	var menu = new mxPopupMenu();
-	menu.popup(30,30,graph.model.getCell('ZaSam6QVm_x5w66h-MOY-1'),mxEvent.Click);
-	
+
+	var model = graph.getModel();
+	var index = model.getChildCount(parent);
+	model.beginUpdate();
+	try
+	{
+		model.add(parent, v1,index);
+	}
+	finally
+	{
+		model.ednUpdate();
+	}
+	*/
 });
