@@ -354,7 +354,8 @@ Draw.loadPlugin(function(ui)
 					//raise alert that label does not exist and
 					//highlight the corresponding cell
 					console.log('The cell with ' + cell.getId() + ' ' + 'does not have a code. Please insert a text!');
-					ui.alert('The cell with ' + cell.getId() + ' ' + 'does not have a code. Please insert a text!');
+					ui.alert('The cell with ID ' + cell.getId() + ' ' + 'does not have a code. Please insert a text!');
+					return "";
 				}
 
 			},
@@ -363,31 +364,41 @@ Draw.loadPlugin(function(ui)
 			{
 				//let valResult = this.validCode.test(code);
 				//console.log('code: ' + code + ' valResult: ' + valResult);
-				
-				if (this.validCode.test(code) == true) 
+				if(code.length == 0) 
 				{
-					//raise alert/error... contains invalid characters
-					//alert('The code ' + code + ' ' + 'is invalid. Please make sure that the code contains only alphanumeric characters and _ . -');
-					console.log('The code: ' + code + ' ' + 'is invalid.');
-					return false;
+					//empty string is invalid
+					this.AreAllCodesCorrect = false; 
+					return false; 
+
 				}
 				else
 				{
-					//contains only valid characters and exists 
-					console.log('The code: ' + code + ' ' + 'is valid');
-					return true; 
+					if (this.validCode.test(code) == true) 
+					{
+						//raise alert/error... contains invalid characters
+						//alert('The code ' + code + ' ' + 'is invalid. Please make sure that the code contains only alphanumeric characters and _ . -');
+						console.log('The code: ' + code + ' ' + 'is invalid.');
+						return false;
+					}
+					else
+					{
+						//contains only valid characters and exists 
+						console.log('The code: ' + code + ' ' + 'is valid');
+						return true; 
+					}
 				}
+				
 				
 			},
 			codes: new Set() ,
-			AreAllCodesUnique: true,
+			AreAllCodesCorrect: true,
 			isCodeUnique: function(code)
 			{
 				let codeMembership = this.codes.has(code); //checks if code already exists
 				if (codeMembership == true)
 				{
 					alert('The code ' + code + ' ' + 'is not unique.');
-					this.AreAllCodesUnique = false;
+					this.AreAllCodesCorrect = false;
 					return false;
 				}
 				else 
@@ -479,7 +490,7 @@ Draw.loadPlugin(function(ui)
 				openbisRoot.appendChild(entityTypesNode);
 				openbisRoot.appendChild(entityInstancesNode);
 				this.codes.clear();
-				this.AreAllCodesUnique = true;
+				this.AreAllCodesCorrect = true;
 
 			}
 		};
@@ -603,8 +614,8 @@ Draw.loadPlugin(function(ui)
 			{
 				graphTraversal(notebookRoots[0], false);
 			}
-			console.log('All Coes unique? ' + xmlFile.AreAllCodesUnique);
-			if(xmlFile.AreAllCodesUnique == true)
+			console.log('All Coes unique? ' + xmlFile.AreAllCodesCorrect);
+			if(xmlFile.AreAllCodesCorrect == true)
 			{
 				var dlg = new EmbedDialog(ui, mxUtils.getPrettyXml(doc), null, null, null, 'Dateiname:', null, null, "openbisInitialisation.xml");
 				ui.showDialog(dlg.container, 450, 250, false, true, function(){console.log('something was done');}, true, false, function(){console.log('resize event')}, true);
