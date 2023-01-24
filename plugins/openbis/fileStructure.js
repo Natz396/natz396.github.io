@@ -135,10 +135,10 @@ Draw.loadPlugin(function(ui)
 
 	function setOpenbisTreeCell(cell, treeParentLevel)
 	{
-		style_space = 'fillColor=#00AFF0;fillOpacity=100;'; //fillColor=#00FF80
-		style_project = 'fillColor=#00556E;fillOpacity=100;'; //fillColor=#29b6f2
-		style_collection = 'fillColor=#501010;fillOpacity=100;'; //fillColor=#FF6666
-		style_object = 'fillColor=#D2001E;fillOpacity=100;'; //fillColor=#FFFFFF;allowArrows=0;dashed=1;
+		style_space = 'fillColor=#00AFF0;fillOpacity=100;fontColor=#000000'; //fillColor=#00FF80
+		style_project = 'fillColor=#00556E;fillOpacity=100;fontColor=#FFFFFF'; //fillColor=#29b6f2
+		style_collection = 'fillColor=#501010;fillOpacity=100;fontColor=#FFFFFF'; //fillColor=#FF6666
+		style_object = 'fillColor=#D2001E;fillOpacity=100;fontColor=#FFFFFF'; //fillColor=#FFFFFF;allowArrows=0;dashed=1;
 		let openbisNode = getOpenBIS(cell)[0];
 		if(treeParentLevel == 'inventory' || treeParentLevel == 'labNotebook')
 		{
