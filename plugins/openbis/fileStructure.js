@@ -380,12 +380,14 @@ Draw.loadPlugin(function(ui)
 				
 			},
 			codes: new Set() ,
+			AreAllCodesUnique: true,
 			isCodeUnique: function(code)
 			{
 				let codeMembership = this.codes.has(code); //checks if code already exists
 				if (codeMembership == true)
 				{
 					alert('The code ' + code + ' ' + 'is not unique.');
+					this.AreAllCodesUnique = false;
 					return false;
 				}
 				else 
@@ -477,6 +479,7 @@ Draw.loadPlugin(function(ui)
 				openbisRoot.appendChild(entityTypesNode);
 				openbisRoot.appendChild(entityInstancesNode);
 				this.codes.clear();
+				this.AreAllCodesUnique = true;
 
 			}
 		};
@@ -600,9 +603,14 @@ Draw.loadPlugin(function(ui)
 			{
 				graphTraversal(notebookRoots[0], false);
 			}
-			var dlg = new EmbedDialog(ui, mxUtils.getPrettyXml(doc), null, null, null, 'Dateiname:', null, null, "openbisInitialisation.xml");
-			ui.showDialog(dlg.container, 450, 250, false, true, function(){console.log('something was done');}, true, false, function(){console.log('resize event')}, true);
-			dlg.init();
+			console.log('All Coes unique? ' + xmlFile.AreAllCodesUnique);
+			if(xmlFile.AreAllCodesUnique == true)
+			{
+				var dlg = new EmbedDialog(ui, mxUtils.getPrettyXml(doc), null, null, null, 'Dateiname:', null, null, "openbisInitialisation.xml");
+				ui.showDialog(dlg.container, 450, 250, false, true, function(){console.log('something was done');}, true, false, function(){console.log('resize event')}, true);
+				dlg.init();
+			}
+			
 		}
 
 
