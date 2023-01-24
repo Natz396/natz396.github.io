@@ -7,7 +7,7 @@ Draw.loadPlugin(function(ui)
 	ui.loadLibrary(
 		new LocalLibrary(
 		  ui,
-		    '<mxlibrary>[{"xml":"7VZtb5swEP41fJwEOM22r0mabtKqVkv3Axy4hZsMRrYJIb9+PmwCtGSKtHTVpkmJxJ3vxfc89yACtswPd4qX2b1MQQTsNmBLJaVxT/lhCUIEcYhpwFZBHIf2H8TrM6dRexqWXEFhJhLk9gckxkYIvqVmFHD39eHbo8vrysRk2oR4HsTswAO2CKjO+GerlVBsUVtjj7riAjU3KIunpgRXxygAV5meej8We3s/qZr+8BOC4irJGhehS57AZbeww3UXGYOiTSN8Q11jLnhhrYU2XJkNHumE8heZVHiUheGEBzmSDEX6hTeyIgjpcp0xiH2i0dgqsk4FGo982/Zq8ykAC1B+4BYFujzNugdl4HCWrcjP3G4FyBwMgRTWmJrMRbDIMRpmgLusS5t7J9fOsTvl9uTbB49NZ/p1OLsan8c8devB3nw9RhHXWZE6QwObdu3YqraCJLpNLjzJF7EXT7PnE2aeIz9DR9mA2yic4Hb229S+eE3M/DRcVH565xjAAekONt4EsZX1be9YtA57MJTOECwlqyKF1OvB1aaCvwbO9peVSmCwZJZ8rnbgo26m4VUg7GLtx9Wn0PKpjxIL09NyEpTn5V3MniHuruXTnoF+uscUD1OauucGFFrE2hYr0InCknQxJKIjqpv4n3kRf0chllJI1ZosDNfrD7Qj5H+wrdBQX9LBVSQXfRxzG7+d5uZ/p+be/xnNRTevqjkwmUz1RZLrBv4vuetI7qSv19ecNfsvZ7cpww/rnw==","w":310,"h":160,"aspect":"fixed"}]</mxlibrary>',
+		    '<mxlibrary>[{"xml":"7VbbjtMwEP2aPCIlcSnwSNvtgsRqV3T5ADcZmkFOHNlO0/Tr8cTOpUuKVtDuCgmplTJjz+2cOVECtswPt4qX2Z1MQQTsJmBLJaVxT/lhCUIEcYhpwFZBHIf2H8TrM6dRexqWXEFhJgLk9gckxt4QfEvF6MLt1/tvDy6uSxOTaQPieRCzAw/YIqA8pz+brYRii9oae9QVF6i5QVk8NiW4PEYBuMz0NPix2Nv+pGqeV8e235U6HVubRviUusZc8MJaC224Mhs80gnFLzKp8CgLw2liciQZivQLb2RFIFFvnTG6+0jNs1VknQo0Hvm2rdXG0wUsQPmR2jnZQpY8QdNYx/uwnYUm34MycDhLT+QhaNcAZA6GUAlrTE3mbrDIURhmgLusC5t7J9fOsetjB7btg4eqMz3/Z3fh85iYYR/YS+6DO/yEoLhKsuZqG1NnaGBjKSO7tgok9k0uPOd/QmY8TaYPmHnK/EgdgyOqo3CC6tlfM/3La2Lmp+Gi8mA4xwgdSHew8SaIraxvBseiddiDsbDG2ClZFSmkXi0uNyX8PXC2vqxUAqOds7vA1Q78rbfT8CoQds/2p9mn0PKhDxILM9DS68vz8qZ3dDlcWz7sCeh9H1M8TEnsjhtQaBFrS6xAJwpLksmYiI6obuLXE55uBXIx0X1HIZZSSNWaLAw/rte0I+S/7xVHOriI5KIPp9zGr6e5+b+puXcvozm7CtfUHJhMpvpZkusG/i+5y0iu19f1NWfN4cvZbcr4w/on","w":310,"h":160,"aspect":"fixed"},{"xml":"3VbbjpswEP0aHisBTtP2sSSb7cO2u2q2H2BgGtwajIwJIV/f8Q3IlqwqNbtRGyWSZzwz9sw5hxCQVXm4lbQuPosceEBuArKSQii7Kg8r4DyIQ5YHZB3EcYi/IN6c2Y3MblhTCZWaSRDpD8gURnCa6sN0wO3X+28PNs+XibWJCfEyiMmBBiQJdJ3TL1aroUpZg8aeNS3lrKGKieqxr8HWURLAVtar0Y+nfxEKUiF+/tlJ2IA/7LTxRvXcFW06VnJaoZU0ikq1ZUe9o/OTQkh2FJWiumftyArG8zvai1aPSd/OG5PYR319so7QKaFhR5qas0y+DmAVSNeU6ZQkoqYZUz063uuo74zzleBCmhuSjfmYHvVM9iAVHM4CF7nRGIKAKEHJHkM6lqvCRpDIghsWwHaFT1s6J22sYzfkjjzAhRuhNx0zzrLkjqbomKI20oW8Ll3s9icGksqs6G0M8OpyVOoKpmCLWGq7Q3FqWqiSOzJcEuV4HmWXsHBYuiY9tBMOROEMBxZ/TYHfniwL1w3lrRuSdUymBvkOts4EnoruZnQkxoEbUyVOZypFW+WQO3nZ2rrg84PD80UrM5jwENlB5Q5c1Nv58UrgyL39afW5abnUB8EqNcIyCM/h8mZw+Br2Wi7tydCHe8zhMKc9W3oNTSZZrSUzdXuAfKcvLcL0GRE2RjIXk+ETYYXhx83GC+5+0KBWwEXEFn04RTW+ntqW/6ba3r2O2pAK11ab7/Saf3n/l9oGab283NAc37AtSaYv4L8A","w":310,"h":160,"aspect":"fixed"}]</mxlibrary>',
 		    "openBIS Library"
 		)
 	  );
@@ -135,10 +135,10 @@ Draw.loadPlugin(function(ui)
 
 	function setOpenbisTreeCell(cell, treeParentLevel)
 	{
-		style_space = 'fillColor=#00FF80;fillOpacity=100;';
-		style_project = 'fillColor=#29b6f2;fillOpacity=100;';
-		style_collection = 'fillColor=#FF6666;fillOpacity=100;';
-		style_object = 'fillColor=#FFFFFF;fillOpacity=100;dashed=1;allowArrows=0;';
+		style_space = 'fillColor=#00AFF0;fillOpacity=100;'; //fillColor=#00FF80
+		style_project = 'fillColor=#00556E;fillOpacity=100;'; //fillColor=#29b6f2
+		style_collection = 'fillColor=#501010;fillOpacity=100;'; //fillColor=#FF6666
+		style_object = 'fillColor=#D2001E;fillOpacity=100;'; //fillColor=#FFFFFF;allowArrows=0;dashed=1;
 		let openbisNode = getOpenBIS(cell)[0];
 		if(treeParentLevel == 'inventory' || treeParentLevel == 'labNotebook')
 		{
@@ -394,13 +394,13 @@ Draw.loadPlugin(function(ui)
 				}
 				
 			},
-			createXmlNode: function(treeHierarchy, vertex, code)
+			createXmlNode: function(treeHierarchy, vertex, code, isInventory)
 			{
 				console.log('Vertex: ' + typeof vertex);
 				console.log('createXmlNode beginning');
 				if(treeHierarchy == 'space')
 				{
-					this.createXmlNodeSpace(treeHierarchy, vertex, code);
+					this.createXmlNodeSpace(treeHierarchy, vertex, code, isInventory);
 				}
 				else if (treeHierarchy == 'project')
 				{
@@ -415,12 +415,26 @@ Draw.loadPlugin(function(ui)
 					this.createXmlNodeObject(treeHierarchy, vertex, code);
 				}
 			},
-			createXmlNodeSpace: function(treeHierarchy, vertex, code)
+			/**
+			 * 
+			 * @param {*} treeHierarchy 
+			 * @param {*} vertex 
+			 * @param {*} code 
+			 * @param {boolean} isInventory -separates lab notebook spaces from inventory spaces
+			 */
+			createXmlNodeSpace: function(treeHierarchy, vertex, code, isInventory)
 			{
 				this.space = doc.createElement(treeHierarchy);
 				console.log('space node space end' + typeof vertex);
 				this.setFolderAttributes(vertex, code);
-				
+				if(isInventory == true)
+				{
+					this.space.setAttribute('inventory', 'true');
+				}
+				else
+				{
+					this.space.setAttribute('inventory', 'false');
+				}
 				//this.checkDescription(vertex);
 				entityInstancesNode.appendChild(this.space);
 				
@@ -462,6 +476,7 @@ Draw.loadPlugin(function(ui)
 				document.appendChild(openbisRoot);
 				openbisRoot.appendChild(entityTypesNode);
 				openbisRoot.appendChild(entityInstancesNode);
+				this.codes.clear();
 
 			}
 		};
@@ -504,7 +519,7 @@ Draw.loadPlugin(function(ui)
 			console.log(openbisNode[0]);
 			if(openbisNode[0].getAttribute('treeHierarchy') == 'eln')
 			{
-				console.log('inventory found');
+				console.log('eln found');
 				return true;
 			}
 			else
@@ -530,7 +545,7 @@ Draw.loadPlugin(function(ui)
 	};
 
 	
-	function graphTraversal(treeRoot)
+	function graphTraversal(treeRoot, isInventory)
 	{
 		graph.traverse(treeRoot, true, function (vertex, edge)
 		{
@@ -543,7 +558,7 @@ Draw.loadPlugin(function(ui)
 				if (xmlFile.isCodeValid(code) == true && xmlFile.isCodeUnique(code))
 				{
 					xmlFile.codes.add(code);
-					xmlFile.createXmlNode(treeHierarchy, vertex, code);
+					xmlFile.createXmlNode(treeHierarchy, vertex, code, isInventory);
 				}
 			}	
 		});
@@ -557,10 +572,10 @@ Draw.loadPlugin(function(ui)
 		getContent();
 		console.log('lalalla');
 		
-		let {inventoryRoots, elnRoots} = getOpenbisTreeRoots();
+		let {inventoryRoots, notebookRoots} = getOpenbisTreeRoots();
 		console.log('kommt man bis hier?');
 		xmlFile.resetXmlDocument(doc);
-		if(inventoryRoots.length == 0 && elnRoots.length == 0)
+		if(inventoryRoots.length == 0 && notebookRoots.length == 0)
 		{
 			console.log('alert: no data');
 			ui.alert('No data');
@@ -570,14 +585,22 @@ Draw.loadPlugin(function(ui)
 			console.log('alert: too many inventories');
 			ui.alert('Too many inventories');
 		}
+		else if(notebookRoots.length > 1)
+		{
+			ui.alert('Too many lab notebooks');
+		}
 		else
 		{
 			if(inventoryRoots.length == 1)
 			{
 				console.log('one invt: ' + inventoryRoots[0].getId());
-				graphTraversal(inventoryRoots[0]);
+				graphTraversal(inventoryRoots[0], true);
 			}
-			var dlg = new EmbedDialog(ui, mxUtils.getPrettyXml(doc), null, null, null, 'Dateiname:', null, null, "ausgaben.tsv");
+			if(notebookRoots.length == 1)
+			{
+				graphTraversal(notebookRoots[0], false);
+			}
+			var dlg = new EmbedDialog(ui, mxUtils.getPrettyXml(doc), null, null, null, 'Dateiname:', null, null, "openbisInitialisation.xml");
 			ui.showDialog(dlg.container, 450, 250, false, true, function(){console.log('something was done');}, true, false, function(){console.log('resize event')}, true);
 			dlg.init();
 		}
@@ -595,7 +618,7 @@ Draw.loadPlugin(function(ui)
 
 	});
 
-
+	
 	/*
 	var parent = ui.editor.graph.getDefaultParent();
     var v1 = graph.insertVertex(graph.model.getCell('1'), null, 'Doubleclick', 20, 20, 80, 30);
@@ -621,4 +644,5 @@ Draw.loadPlugin(function(ui)
 		model.ednUpdate();
 	}
 	*/
+	
 });
