@@ -863,8 +863,9 @@ Draw.loadPlugin(function(ui)
 		form.addOption(combotest, 'labelOption3', 'OPTION3', false);
 		form.addCheckbox('namecheck', true);
 		form.addText('nameText', 'val', true)
-		var testCell = graph.model.getCell('6BlT60FBLKf2mpYVhe83-6');
-		testCell.setAttribute('testBeschreibung', AreaInput.value);
+		//var testCell = graph.model.getCell('6BlT60FBLKf2mpYVhe83-6');
+		//testCell.setAttribute('testBeschreibung', AreaInput.value);
+		console.log('testcell removed');
 
 
 		console.log('attrs loop');
@@ -1096,7 +1097,7 @@ Draw.loadPlugin(function(ui)
 			console.log(value.childNodes);
 			value.appendChild(oNodeNew);
 			console.log(value.childNodes);
-
+			
 
 			//console.log(oNodeNew);
 			//console.log(oNode.parentNode.nodeName);
