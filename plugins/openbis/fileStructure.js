@@ -7,7 +7,7 @@ Draw.loadPlugin(function(ui)
 	ui.loadLibrary(
 		new LocalLibrary(
 		  ui,
-		    '<mxlibrary>[{"xml":"7VbbjtMwEP2aPCIlcSnwSNvtgsRqV3T5ADcZmkFOHNlO0/Tr8cTOpUuKVtDuCgmplTJjz+2cOVECtswPt4qX2Z1MQQTsJmBLJaVxT/lhCUIEcYhpwFZBHIf2H8TrM6dRexqWXEFhJgLk9gckxt4QfEvF6MLt1/tvDy6uSxOTaQPieRCzAw/YIqA8pz+brYRii9oae9QVF6i5QVk8NiW4PEYBuMz0NPix2Nv+pGqeV8e235U6HVubRviUusZc8MJaC224Mhs80gnFLzKp8CgLw2liciQZivQLb2RFIFFvnTG6+0jNs1VknQo0Hvm2rdXG0wUsQPmR2jnZQpY8QdNYx/uwnYUm34MycDhLT+QhaNcAZA6GUAlrTE3mbrDIURhmgLusC5t7J9fOsetjB7btg4eqMz3/Z3fh85iYYR/YS+6DO/yEoLhKsuZqG1NnaGBjKSO7tgok9k0uPOd/QmY8TaYPmHnK/EgdgyOqo3CC6tlfM/3La2Lmp+Gi8mA4xwgdSHew8SaIraxvBseiddiDsbDG2ClZFSmkXi0uNyX8PXC2vqxUAqOds7vA1Q78rbfT8CoQds/2p9mn0PKhDxILM9DS68vz8qZ3dDlcWz7sCeh9H1M8TEnsjhtQaBFrS6xAJwpLksmYiI6obuLXE55uBXIx0X1HIZZSSNWaLAw/rte0I+S/7xVHOriI5KIPp9zGr6e5+b+puXcvozm7CtfUHJhMpvpZkusG/i+5y0iu19f1NWfN4cvZbcr4w/on","w":310,"h":160,"aspect":"fixed"},{"xml":"3VbbjpswEP0aHisBTtP2sSSb7cO2u2q2H2BgGtwajIwJIV/f8Q3IlqwqNbtRGyWSZzwz9sw5hxCQVXm4lbQuPosceEBuArKSQii7Kg8r4DyIQ5YHZB3EcYi/IN6c2Y3MblhTCZWaSRDpD8gURnCa6sN0wO3X+28PNs+XibWJCfEyiMmBBiQJdJ3TL1aroUpZg8aeNS3lrKGKieqxr8HWURLAVtar0Y+nfxEKUiF+/tlJ2IA/7LTxRvXcFW06VnJaoZU0ikq1ZUe9o/OTQkh2FJWiumftyArG8zvai1aPSd/OG5PYR319so7QKaFhR5qas0y+DmAVSNeU6ZQkoqYZUz063uuo74zzleBCmhuSjfmYHvVM9iAVHM4CF7nRGIKAKEHJHkM6lqvCRpDIghsWwHaFT1s6J22sYzfkjjzAhRuhNx0zzrLkjqbomKI20oW8Ll3s9icGksqs6G0M8OpyVOoKpmCLWGq7Q3FqWqiSOzJcEuV4HmWXsHBYuiY9tBMOROEMBxZ/TYHfniwL1w3lrRuSdUymBvkOts4EnoruZnQkxoEbUyVOZypFW+WQO3nZ2rrg84PD80UrM5jwENlB5Q5c1Nv58UrgyL39afW5abnUB8EqNcIyCM/h8mZw+Br2Wi7tydCHe8zhMKc9W3oNTSZZrSUzdXuAfKcvLcL0GRE2RjIXk+ETYYXhx83GC+5+0KBWwEXEFn04RTW+ntqW/6ba3r2O2pAK11ab7/Saf3n/l9oGab283NAc37AtSaYv4L8A","w":310,"h":160,"aspect":"fixed"}]</mxlibrary>',
+		  '<mxlibrary>[{"xml":"5VZtb9owEP41+TgpL4VtHxco3aRVrUb3A0xyI95MHNmGEH797mznhTZMSCtU2hBIufPd+e6e54kIktlmf6dYVdzLHESQ3AbJTElp3NNmPwMhgjjkeZDMgzgO8RfEixOnkT0NK6agNCMJcvUTMoMRgq3oMgq4+/bw/dHltWViMjEhngZxsmdBkgZU5/iL1SooV1yjseN6ywTXzHBZPjUVuDpGAbjK9NT7ebnD/qRqzrsH22+vOh5bm0b4krrmG8FKtFJtmDJLfqATyk8LqfhBlobRxOTICi7yr6yRW1oS9dYag9gnaj6ZR+hUoPmBrexdNp8CeAnKj2TnTFJZsYybBh0fQjsLTb4DZWB/Ep7Ir8DSAOQGDG0lrHluCheRRA7CsAC+Ltq0qXcy7RzrLrdHGx/8qlrT43+SC1+GwPR8SK7JB3f4mYNiKiuaizGmLriBJUJGdo0KJPTNRnjMn4HJhJD1J6VkrT0JzoI3HofXJ9x4EP2QLaYD8KNwBPybv8b+xYvjxk/DxNavxzkG+4J8DUtvgljJ+rZ3pNaBB0OpDbep5LbMIfergzK3q0SzlFaz6FlwIY5WSxf+ebHYn9yqDAYsRfYwtQYfNRlfvwKBzNwdVx/bpk99lLw0PWydIj1u7zpHW8O15dOegdL1MYbTmCjvmQHFmdDujjnoTPGKlDVEqkWyHfnttKqtpl5Npz+QFzMppLJmEoaTyRRjU/I/dCIlodCrX8lfMIhe2A9FIynH/K+g4ujjMR3it5Px9N+U8fvryBjJdUkZgylkfp6I24H/SxFfUaqdLi+vVTT7v/WOQcN//b8B","w":310,"h":160,"aspect":"fixed"},{"xml":"5VfbjtowEP2aPFZKYmC7j+W2fdh2V2X7AU4yJW5NHNmGEL6+40tIYANC3QvSFoHkGc+MPXPOCRCQyWp7J2mZfxMZ8IDMAjKRQmi3Wm0nwHkQhywLyDSI4xA/QTw/sRvZ3bCkEgrdkyCS35BqjOA0MYeZgLsfDz8fXV5TJjYmJsSjICZbGpBxYOocvrFaCUXCFBobptaUM0U1E8VTXYKroyWAq2xWrR9P/y40JEL8uewkbKA57LBxpWvui6qKrTgt0BorTaVesJ3ZMfnjXEi2E4WmpmfjSHPGs3tai7UZk7ldY3Rin8z1yTRCpwTFdjSxZ9l8E8AKkL4p2ykZi5KmTNfo+GyifjHOJ4ILaW9I5vZlezQz2YDUsD0JXORHYwkCYgVa1hhSsUznLoJEDtwwB7bMm7SRd1LlHMt9bssDXPgRNqZnxkmW3NMEHV3UWrqQ96WL2/7KQFKZ5rWLAV68HpWqnGlYIJbGrlCchhZ6xT0ZLkSZci6qL1KKSnnWXIR73I+7Txh4dH3bDdgdVkRhDysGLybFs2fNwHdD+dqPzTk6c4RsCQtvAk9ENWsdY+vAja42u1OWYl1kkPnRQZHZUaJZCCty9MwZ5wejNQeeHyzeT6xlCh3mIp+oXIKPGvaPXwJHtm4Oq/dN06c+ClboFra9VD1unwY3R4i4a/m0I1D29+jDqU+trvQUVCpZaUTWdTcANp2+tWyTM7JVVmSvJtwjKYbhcDiaeYk+7FVrFII+5Nw/P5zPizS6PUQ7vp5KRx9TpTfvo1Jye3WVNp1e88v1/1DpXpJvL1M029/4jjzdvwB/AQ==","w":310,"h":160,"aspect":"fixed"}]</mxlibrary>',
 		    "openBIS Library"
 		)
 	  );
@@ -135,10 +135,10 @@ Draw.loadPlugin(function(ui)
 
 	function setOpenbisTreeCell(cell, treeParentLevel)
 	{
-		style_space = 'fillColor=#00AFF0;fillOpacity=100;fontColor=#000000'; //fillColor=#00FF80
-		style_project = 'fillColor=#00556E;fillOpacity=100;fontColor=#FFFFFF'; //fillColor=#29b6f2
+		style_space = 'fillColor=#00556E;fillOpacity=100;fontColor=#FFFFFF'; //fillColor=#00FF80
+		style_project = 'fillColor=#00AFF0;fillOpacity=100;fontColor=#000000'; //fillColor=#29b6f2
 		style_collection = 'fillColor=#501010;fillOpacity=100;fontColor=#FFFFFF'; //fillColor=#FF6666
-		style_object = 'fillColor=#D2001E;fillOpacity=100;fontColor=#FFFFFF'; //fillColor=#FFFFFF;allowArrows=0;dashed=1;
+		style_object = 'fillColor=#D2001E;fillOpacity=100;fontColor=#FFFFFF;allowArrows=0;'; //fillColor=#FFFFFF;allowArrows=0;dashed=1;
 		let openbisNode = getOpenBIS(cell)[0];
 		if(treeParentLevel == 'inventory' || treeParentLevel == 'labNotebook')
 		{
