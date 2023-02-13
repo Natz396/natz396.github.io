@@ -311,15 +311,29 @@ Draw.loadPlugin(function(ui)
 			 * @param {mxCell} cell
 			 * @param {string} code
 			 */
-			setFolderAttributes: function(cell, code)
+			setFolderAttributes: function(cell, code, treeHierarchy)
 			{
 				console.log('setFilderAtributes beginning');
-				this.space.setAttribute('code', code);
-				if (typeof cell.getAttribute('Description') != 'undefined')
+
+				if (treeHierarchy == 'space')
 				{
-					//console.log(cell.getAttribute('label') + 'description does exist');
-					this.space.setAttribute('description', cell.getAttribute('Description'));
+					this.space.setAttribute('code', code);
+					if (typeof cell.getAttribute('Description') != 'undefined')
+					{
+						//console.log(cell.getAttribute('label') + 'description does exist');
+						this.space.setAttribute('description', cell.getAttribute('Description'));
+					}
 				}
+				else if (treeHierarchy == 'project')
+				{
+					this.project.setAttribute('code', code);
+					if (typeof cell.getAttribute('Description') != 'undefined')
+					{
+						//console.log(cell.getAttribute('label') + 'description does exist');
+						this.project.setAttribute('description', cell.getAttribute('Description'));
+					}
+				}
+				
 			},
 			/**
 			 * 
@@ -409,8 +423,8 @@ Draw.loadPlugin(function(ui)
 			},
 			createXmlNode: function(treeHierarchy, vertex, code, isInventory)
 			{
-				console.log('Vertex: ' + typeof vertex);
-				console.log('createXmlNode beginning');
+				//console.log('Vertex: ' + typeof vertex);
+				console.log('createXmlNode beginning: ' + treeHierarchy + vertex + code + isInventory);
 				if(treeHierarchy == 'space')
 				{
 					this.createXmlNodeSpace(treeHierarchy, vertex, code, isInventory);
@@ -438,8 +452,8 @@ Draw.loadPlugin(function(ui)
 			createXmlNodeSpace: function(treeHierarchy, vertex, code, isInventory)
 			{
 				this.space = doc.createElement(treeHierarchy);
-				console.log('space node space end' + typeof vertex);
-				this.setFolderAttributes(vertex, code);
+				//console.log('space node space end' + typeof vertex);
+				this.setFolderAttributes(vertex, code, treeHierarchy);
 				if(isInventory == true)
 				{
 					this.space.setAttribute('inventory', 'true');
@@ -455,7 +469,7 @@ Draw.loadPlugin(function(ui)
 			createXmlNodeProject: function(treeHierarchy, vertex, code)
 			{
 				this.project = doc.createElement(treeHierarchy);
-				this.setFolderAttributes(vertex, code);
+				this.setFolderAttributes(vertex, code, treeHierarchy);
 				this.space.appendChild(xmlFile.project);
 			},
 			createXmlNodeCollection: function(treeHierarchy, vertex, code)
@@ -485,12 +499,16 @@ Draw.loadPlugin(function(ui)
 			},
 			resetXmlDocument: function(document)
 			{
+				this.removeAllChildNodes(entityTypesNode);
+				this.removeAllChildNodes(entityInstancesNode);
 				this.removeAllChildNodes(document);
 				document.appendChild(openbisRoot);
 				openbisRoot.appendChild(entityTypesNode);
 				openbisRoot.appendChild(entityInstancesNode);
 				this.codes.clear();
 				this.AreAllCodesCorrect = true;
+				
+
 
 			}
 		};
@@ -506,12 +524,12 @@ Draw.loadPlugin(function(ui)
 	{
 		if(isOpenbisMember(cell))
 		{
-			console.log('openbis member: ' + cell.getId());
+			//console.log('openbis member: ' + cell.getId());
 			let openbisNode = getOpenBIS(cell);
-			console.log(openbisNode[0]);
+			//console.log(openbisNode[0]);
 			if(openbisNode[0].getAttribute('treeHierarchy') == 'inventory')
 			{
-				console.log('inventory found');
+				//console.log('inventory found');
 				return true;
 			}
 			else
@@ -528,12 +546,12 @@ Draw.loadPlugin(function(ui)
 	{
 		if(isOpenbisMember(cell))
 		{
-			console.log('openbis member: ' + cell.getId());
+			//console.log('openbis member: ' + cell.getId());
 			let openbisNode = getOpenBIS(cell);
-			console.log(openbisNode[0]);
+			//console.log(openbisNode[0]);
 			if(openbisNode[0].getAttribute('treeHierarchy') == 'eln')
 			{
-				console.log('eln found');
+				//console.log('eln found');
 				return true;
 			}
 			else
@@ -565,7 +583,7 @@ Draw.loadPlugin(function(ui)
 		{
 			let openbisNode = getOpenBIS(vertex)[0];
 			let treeHierarchy = openbisNode.getAttribute('treeHierarchy');
-			console.log('treeHier' + treeHierarchy);
+			console.log('treeHier ' + treeHierarchy);
 			if (treeHierarchy != 'inventory')
 			{
 				let code = xmlFile.createCode(vertex);
@@ -573,6 +591,7 @@ Draw.loadPlugin(function(ui)
 				{
 					xmlFile.codes.add(code);
 					xmlFile.createXmlNode(treeHierarchy, vertex, code, isInventory);
+					console.log('traversal: ' + mxUtils.getPrettyXml(doc));
 				}
 			}	
 		});
@@ -582,12 +601,15 @@ Draw.loadPlugin(function(ui)
 	// Adds action
 	ui.actions.addAction('createXml', function()
 	{
+		/*
 		console.log('huhu');
 		getContent();
 		console.log('lalalla');
+		*/
 		
 		let {inventoryRoots, notebookRoots} = getOpenbisTreeRoots();
 		console.log('kommt man bis hier?');
+		console.log(mxUtils.getPrettyXml(doc));
 		xmlFile.resetXmlDocument(doc);
 		if(inventoryRoots.length == 0 && notebookRoots.length == 0)
 		{
@@ -614,10 +636,10 @@ Draw.loadPlugin(function(ui)
 			{
 				graphTraversal(notebookRoots[0], false);
 			}
-			console.log('All Coes unique? ' + xmlFile.AreAllCodesCorrect);
+			console.log('All Codes unique? ' + xmlFile.AreAllCodesCorrect);
 			if(xmlFile.AreAllCodesCorrect == true)
 			{
-				var dlg = new EmbedDialog(ui, mxUtils.getPrettyXml(doc), null, null, null, 'Dateiname:', null, null, "openbisInitialisation.xml");
+				var dlg = new EmbedDialog(ui, mxUtils.getPrettyXml(doc), null, null, null, 'File name:', null, null, "openbisInitialisation.xml");
 				ui.showDialog(dlg.container, 450, 250, false, true, function(){console.log('something was done');}, true, false, function(){console.log('resize event')}, true);
 				dlg.init();
 			}
@@ -663,14 +685,14 @@ Draw.loadPlugin(function(ui)
 	};
 	
 	// Adds action
-	ui.actions.addAction('entityDialog', function()
+	/*ui.actions.addAction('entityDialog', function()
 	{
 		anotherName();
 		console.log('es wird');
 		var cell = graph.getSelectionCell() || graph.getModel().getRoot();
 		ui.showEntityDialog(cell);
 	}, null, null, Editor.ctrlKey + '+O');
-
+	*/
 
 	EditorUi.prototype.showEntityDialog = function(cell)
 	{
